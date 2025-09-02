@@ -10,7 +10,7 @@ import toast from 'react-hot-toast';
 const AddShows = () => {
 
     const {axios, getToken, user, image_base_url} = useAppContext()
-
+    
     const currency = import.meta.env.VITE_CURRENCY
     const [nowPlayingMovies, setNowPlayingMovies] = useState([]);
     const [selectedMovie, setSelectedMovie] = useState(null);
@@ -77,7 +77,7 @@ const AddShows = () => {
             }
 
             const { data } = await axios.post('/api/show/add', payload, {headers: { Authorization: `Bearer ${await getToken()}` }})
-
+            console.log("Submission response:", data);
             if(data.success){
                 toast.success(data.message)
                 setSelectedMovie(null)

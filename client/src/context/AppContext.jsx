@@ -25,7 +25,6 @@ export const AppProvider = ({ children })=>{
         try {
             const {data} = await axios.get('/api/admin/is-admin', {headers: {Authorization: `Bearer ${await getToken()}`}})
             setIsAdmin(data.isAdmin)
-
             if(!data.isAdmin && location.pathname.startsWith('/admin')){
                 navigate('/')
                 toast.error('You are not authorized to access admin dashboard')
