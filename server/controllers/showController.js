@@ -91,12 +91,12 @@ export const addShow = async (req, res) =>{
 // API to get all shows from the database
 export const getShows = async (req, res) =>{
     try {
-        const shows = await Show.find({showDateTime: {$gte: new Date()}}).populate('movie').sort({ showDateTime: 1 });
+        // Fetch all shows, regardless of date, to diagnose the issue
+        const shows = await Show.find({}).populate('movie').sort({ showDateTime: 1 });
 
-        // filter unique shows
-        const uniqueShows = new Set(shows.map(show => show.movie))
-
-        res.json({success: true, shows: Array.from(uniqueShows)})
+        // If the goal is to return all shows, then the unique filtering might be removed or adjusted.
+        // For now, let's return all shows to see if any data is retrieved.
+        res.json({success: true, shows: shows}) // Returning all shows directly
     } catch (error) {
         console.error(error);
         res.json({ success: false, message: error.message });
